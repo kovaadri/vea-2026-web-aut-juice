@@ -60,4 +60,17 @@ export class HomePage extends BasePage {
   static get productSubmitButton() {
     return cy.get("#submitButton");
   }
+
+  static get productTable() {
+    return cy.get(".mat-grid-list > div > mat-grid-tile");
+  }
+
+  static get tablePaginater() {
+    // return cy.get(".mat-mdc-paginator-page-size-select");
+    return cy.get(".mat-mdc-paginator-touch-target");
+  }
+
+  static get tablePaginaterList() {
+    return cy.get("#mat-select-0-panel");
+  }
 }

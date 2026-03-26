@@ -1,6 +1,12 @@
+import { BasketPage } from '../pageObjects/basketPage';
+import { DeliveryMethodPage } from '../pageObjects/deliveryMethodPage';
 import { HomePage } from '../pageObjects/homePage';
 import { LoginPage } from '../pageObjects/loginPage';
+import { OrderCompletionPage } from '../pageObjects/orderCompletionPage';
+import { OrderSummaryPage } from '../pageObjects/orderSummaryPage';
+import { PaymentOptionsPage } from '../pageObjects/paymentOptionsPage';
 import { RegistrationPage } from '../pageObjects/registrationPage';
+import { SelectAddressPage } from '../pageObjects/selectAddressPage';
 
 describe('Juice-shop scenarios', () => {
   context('Without auto login', () => {
@@ -146,7 +152,7 @@ describe('Juice-shop scenarios', () => {
       HomePage.productReviews.should("contain.text", "Tastes like metal");
     });
 
-    it.only("Validate product card amount", () => {
+    it("Validate product card amount", () => {
       // Validate that the default amount of cards is 12
       HomePage.productTable.should("have.length", 12);
       // Change items per page (at the bottom of page) to 24
@@ -161,26 +167,33 @@ describe('Juice-shop scenarios', () => {
       HomePage.productTable.should("have.length", 36);
     });
 
-    it("Buy Girlie T-shirt", () => {
+    it.only("Buy Girlie T-shirt", () => {
       // Click on search icon
+      HomePage.searchIcon.click();
       // Search for Girlie
+      HomePage.searchField.type("Girlie{enter}");
       // Add to basket "Girlie"
+      HomePage.addToBasketButton.click();
       // Click on "Your Basket" button
-      // Create page object - BasketPage
+      HomePage.yourBasketButton.click();
       // Click on "Checkout" button
-      // Create page object - SelectAddressPage
+      BasketPage.checkoutButton.click();
       // Select address containing "United Fakedom"
+      SelectAddressPage.addressList.contains("United Fakedom").click();
       // Click Continue button
-      // Create page object - DeliveryMethodPage
+      SelectAddressPage.continueButton.click();
       // Select delivery speed Standard Delivery
+      DeliveryMethodPage.deliveryList.contains("Standard Delivery").click();
       // Click Continue button
-      // Create page object - PaymentOptionsPage
+      DeliveryMethodPage.continueButton.click();
       // Select card that ends with "5678"
+      PaymentOptionsPage.paymentList.contains("5678").parent().find("mat-radio-button").click();
       // Click Continue button
-      // Create page object - OrderSummaryPage
+      PaymentOptionsPage.continueButton.click();
       // Click on "Place your order and pay"
-      // Create page object - OrderCompletionPage
+      OrderSummaryPage.checkoutButton.click();
       // Validate confirmation - "Thank you for your purchase!"
+      OrderCompletionPage.completionField.should("contain.text", "Thank you for your purchase!");
     });
 
     it("Add address", () => {

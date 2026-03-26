@@ -66,11 +66,18 @@ export class HomePage extends BasePage {
   }
 
   static get tablePaginater() {
-    // return cy.get(".mat-mdc-paginator-page-size-select");
     return cy.get(".mat-mdc-paginator-touch-target");
   }
 
   static get tablePaginaterList() {
     return cy.get("#mat-select-0-panel");
+  }
+
+  static get addToBasketButton() {
+    return cy.get("button[aria-label='Add to Basket']")
+  }
+
+  static get yourBasketButton() {
+    return cy.get("[routerlink=\"/basket\"]")
   }
 }

@@ -137,7 +137,7 @@ describe('Juice-shop scenarios', () => {
       // Select a product card - Raspberry Juice (1000ml)
       HomePage.productNames.contains("Raspberry Juice (1000ml)").click();
       // Type in review - "Tastes like metal"
-      HomePage.reviewInputField.type("Tastes like metal");
+      HomePage.reviewInputField.click().type("Tastes like metal");
       // Click Submit
       HomePage.productSubmitButton.click();
       // Click expand reviews button/icon (wait for reviews to appear)

@@ -80,4 +80,12 @@ export class HomePage extends BasePage {
   static get yourBasketButton() {
     return cy.get("[routerlink=\"/basket\"]")
   }
+  
+  static get ordersButton() {
+    return cy.get("button[aria-label='Show Orders and Payment Menu']");
+  }
+
+  static get savedAddressButton() {
+    return cy.get("button[routerlink=\"/address/saved\"]")
+  }
 }

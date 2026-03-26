@@ -1,4 +1,5 @@
 import { BasketPage } from '../pageObjects/basketPage';
+import { CreateAddressPage } from '../pageObjects/createAddressPage';
 import { DeliveryMethodPage } from '../pageObjects/deliveryMethodPage';
 import { HomePage } from '../pageObjects/homePage';
 import { LoginPage } from '../pageObjects/loginPage';
@@ -6,6 +7,7 @@ import { OrderCompletionPage } from '../pageObjects/orderCompletionPage';
 import { OrderSummaryPage } from '../pageObjects/orderSummaryPage';
 import { PaymentOptionsPage } from '../pageObjects/paymentOptionsPage';
 import { RegistrationPage } from '../pageObjects/registrationPage';
+import { SavedAddressesPage } from '../pageObjects/savedAddressesPage';
 import { SelectAddressPage } from '../pageObjects/selectAddressPage';
 
 describe('Juice-shop scenarios', () => {
@@ -167,7 +169,7 @@ describe('Juice-shop scenarios', () => {
       HomePage.productTable.should("have.length", 36);
     });
 
-    it.only("Buy Girlie T-shirt", () => {
+    it("Buy Girlie T-shirt", () => {
       // Click on search icon
       HomePage.searchIcon.click();
       // Search for Girlie
@@ -196,16 +198,34 @@ describe('Juice-shop scenarios', () => {
       OrderCompletionPage.completionField.should("contain.text", "Thank you for your purchase!");
     });
 
-    it("Add address", () => {
+    it.only("Add address", () => {
       // Click on Account
+      HomePage.accountButton.click();
       // Click on Orders & Payment
+      HomePage.ordersButton.click();
       // Click on My saved addresses
-      // Create page object - SavedAddressesPage
+      HomePage.savedAddressButton.click();
       // Click on Add New Address
-      // Create page object - CreateAddressPage
+      SavedAddressesPage.addNewAddress.click();
       // Fill in the necessary information
+      CreateAddressPage.newAddressForm.each(($el) => {
+        let field = cy.wrap($el);
+        field.find(".mat-mdc-form-field-infix").children().each(($child) => { // HAHA
+          if ($child.prop("tagName") == "INPUT") {
+            if ($child.prop("type") == "number") {
+              cy.wrap($child).type("12345678");
+            } else {
+              cy.wrap($child).type("demo");
+            }
+          } else if ($child.prop("tagName") == "TEXTAREA") {
+            cy.wrap($child).type("demo");
+          }
+        });
+      });
       // Click Submit button
+      CreateAddressPage.submitButton.click();
       // Validate that previously added address is visible
+      SavedAddressesPage.savedAddressList.should("contain.text", "demo")
     });
 
     it("Add payment option", () => {

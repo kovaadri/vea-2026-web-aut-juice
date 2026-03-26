@@ -131,12 +131,19 @@ describe('Juice-shop scenarios', () => {
 
     it("Add a review", () => {
       // Click on search icon
+      HomePage.searchIcon.click();
       // Search for Raspberry
+      HomePage.searchField.type("Raspberry{enter}");
       // Select a product card - Raspberry Juice (1000ml)
+      HomePage.productNames.contains("Raspberry Juice (1000ml)").click();
       // Type in review - "Tastes like metal"
+      HomePage.reviewInputField.type("Tastes like metal");
       // Click Submit
+      HomePage.productSubmitButton.click();
       // Click expand reviews button/icon (wait for reviews to appear)
+      HomePage.productReviewButton.click();
       // Validate review -  "Tastes like metal"
+      HomePage.productReviews.should("contain.text", "Tastes like metal");
     });
 
     it("Validate product card amount", () => {

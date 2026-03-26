@@ -52,4 +52,12 @@ export class HomePage extends BasePage {
   static get productReviews() {
     return cy.get(".mat-expansion-panel-body");
   }
+
+  static get reviewInputField() {
+    return cy.get('[aria-label="Text field to review a product"]');
+  }
+
+  static get productSubmitButton() {
+    return cy.get("#submitButton");
+  }
 }

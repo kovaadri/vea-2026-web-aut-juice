@@ -229,7 +229,7 @@ describe('Juice-shop scenarios', () => {
       SavedAddressesPage.savedAddressList.should("contain.text", "demo")
     });
 
-    it.only("Add payment option", () => {
+    it("Add payment option", () => {
       // Click on Account
       HomePage.accountButton.click();
       // Click on Orders & Payment

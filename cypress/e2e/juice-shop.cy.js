@@ -116,12 +116,17 @@ describe('Juice-shop scenarios', () => {
       HomePage.productBoxInfo.should("contain.text", "Sweet & tasty!");
     });
 
-    it.only("Read a review", () => {
+    it("Read a review", () => {
       // Click on search icon
+      HomePage.searchIcon.click();
       // Search for King
+      HomePage.searchField.type("King{enter}");
       // Select a product card - OWASP Juice Shop "King of the Hill" Facemask
+      HomePage.productNames.contains("OWASP Juice Shop \"King of the Hill\" Facemask").click();
       // Click expand reviews button/icon (wait for reviews to appear)
+      HomePage.productReviewButton.click();
       // Validate review - K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!
+      HomePage.productReviews.should("contain.text", "K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!");
     });
 
     it("Add a review", () => {

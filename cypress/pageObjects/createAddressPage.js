@@ -10,6 +10,6 @@ export class CreateAddressPage extends BasePage {
     }
 
     static get submitButton() {
-    return cy.get("button#submitButton");
-  }
+        return cy.get("button#submitButton");
+    }
 }

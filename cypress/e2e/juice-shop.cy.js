@@ -8,6 +8,7 @@ import { OrderSummaryPage } from '../pageObjects/orderSummaryPage';
 import { PaymentOptionsPage } from '../pageObjects/paymentOptionsPage';
 import { RegistrationPage } from '../pageObjects/registrationPage';
 import { SavedAddressesPage } from '../pageObjects/savedAddressesPage';
+import { SavedPaymentMethodsPage } from '../pageObjects/savedPaymentMethodsPage';
 import { SelectAddressPage } from '../pageObjects/selectAddressPage';
 
 describe('Juice-shop scenarios', () => {
@@ -198,7 +199,7 @@ describe('Juice-shop scenarios', () => {
       OrderCompletionPage.completionField.should("contain.text", "Thank you for your purchase!");
     });
 
-    it.only("Add address", () => {
+    it("Add address", () => {
       // Click on Account
       HomePage.accountButton.click();
       // Click on Orders & Payment
@@ -228,18 +229,35 @@ describe('Juice-shop scenarios', () => {
       SavedAddressesPage.savedAddressList.should("contain.text", "demo")
     });
 
-    it("Add payment option", () => {
+    it.only("Add payment option", () => {
       // Click on Account
+      HomePage.accountButton.click();
       // Click on Orders & Payment
+      HomePage.ordersButton.click();
       // Click on My payment options
-      // Create page object - SavedPaymentMethodsPage
+      HomePage.savedPaymentButton.click();
       // Click Add new card
+      SavedPaymentMethodsPage.newCardPanel.click();
       // Fill in Name
       // Fill in Card Number
+      SavedPaymentMethodsPage.newCardPanel.find("input, select").each(($el) => {
+        let field = cy.wrap($el);
+        if ($el.prop("tagName") == "INPUT") {
+          if ($el.prop("type") == "number") {
+              cy.wrap($el).type("1111111111111111");
+            } else {
+              cy.wrap($el).type("demo");
+            }
+        }
+      });
       // Set expiry month to 7
+      SavedPaymentMethodsPage.expiryMonth.select("7");
       // Set expiry year to 2090
+      SavedPaymentMethodsPage.expiryYear.select("2090");
       // Click Submit button
+      SavedPaymentMethodsPage.submitButton.click();
       // Validate that the card shows up in the list
+      SavedPaymentMethodsPage.savedPaymentList.should("contain.text", "demo");
     });
   });
 });

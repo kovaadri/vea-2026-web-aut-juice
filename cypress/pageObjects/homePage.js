@@ -88,4 +88,8 @@ export class HomePage extends BasePage {
   static get savedAddressButton() {
     return cy.get("button[routerlink=\"/address/saved\"]")
   }
+
+  static get savedPaymentButton() {
+    return cy.get("button[routerlink=\"/saved-payment-methods\"]");
+  }
 }
